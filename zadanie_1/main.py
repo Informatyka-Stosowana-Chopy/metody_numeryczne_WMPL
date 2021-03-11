@@ -9,7 +9,7 @@ print("----Zadanie 1 ----")
 #######################################
 
 def funkcja_wielomianowa(x):
-    return (x - 2) ** 2 - 3
+    return x ** 2 - 1
 
 
 def funkcja_trygonometryczna(x):
@@ -23,14 +23,16 @@ def funkcja_wykladnicza(x):
 def oblicz_bisekcja(funkcja, a, b, kryterium_zatrzymania):
     a = float(a)
     b = float(b)
-
+    s = "Metoda bisekcji: "
     if funkcja(a) == 0:
-        print("Miejscem zerowym funkcji jest:", a)
+        s += str(a)
+        return s
     elif funkcja(b) == 0:
-        print("Miejscem zerowym funkcji jest:", b)
+        s += str(b)
+        return s
 
     elif funkcja(a) * funkcja(b) > 0:
-        print("W danym przedziale nie ma miejsca zerowego")
+        return "W danym przedziale nie ma miejsca zerowego"
     else:
         x1 = 0.0
 
@@ -38,7 +40,8 @@ def oblicz_bisekcja(funkcja, a, b, kryterium_zatrzymania):
             for i in range(int(kryterium_zatrzymania['liczba_operacji'])):
                 x1 = (a + b) / 2.0
                 if funkcja(x1) == 0:
-                    print("Miejscem zerowym jest:", x1)
+                    s += str(x1)
+                    return s
                 if funkcja(a) * funkcja(x1) < 0:
                     b = x1
                 else:
@@ -48,13 +51,30 @@ def oblicz_bisekcja(funkcja, a, b, kryterium_zatrzymania):
             while abs(funkcja(x1)) > float(kryterium_zatrzymania['dokladnosc']):
                 x1 = (a + b) / 2.0
                 if funkcja(x1) == 0:
-                    print("Miejscem zerowym jest:", x1)
+                    s += str(x1)
+                    return s
                 if funkcja(a) * funkcja(x1) < 0:
                     b = x1
                 else:
                     a = x1
-        print("Miejscem zerowym jest:", x1)
+        s += str(x1)
+        return s
 
+
+def oblicz_sieczne(funkcja, a, b, kryterium_zatrzymania):
+    a = float(a)
+    b = float(b)
+    s = "Metoda siecznych: "
+    if funkcja(a) == 0:
+        s += str(a)
+        return s
+    elif funkcja(b) == 0:
+        s += str(b)
+        return s
+    elif funkcja(a) * funkcja(b) > 0:
+        pass # aby nie wyświetlało 2x informacji
+    else:
+        x1 = 0.0
 
 #######################################
 # GIU TOOLS
@@ -76,12 +96,6 @@ questions = [
                   choices=['dokładność obliczeń', 'osiągnięcie zadanej liczby operacji'],
                   ),
 
-]
-questions_type = [
-    inquirer.List(name='typ_obliczen',
-                  message="Którą metodą chcez obliczyć?",
-                  choices=['metoda bisekcji', 'metoda siecznych']
-                  ),
 ]
 questions_kontynuowac = [
     inquirer.List(name='kontynuacja',
@@ -113,30 +127,24 @@ while kontynuacja:
 
     answers_kryterium_zatrzymania = inquirer.prompt(questions_kryterium_zatrzymania)
 
-    # print(answers_kryterium_zatrzymania.keys())
-    # time.sleep(1)
-    # if answers_kryterium_zatrzymania.keys() == "dokladnosc":
-    #     print("no dziala tu tez")
-    #     time.sleep(10)
-    answers_type = inquirer.prompt(questions_type)
+    if answers['funkcja'] == 'wielomianowa':
+        print(oblicz_bisekcja(funkcja_wielomianowa, answers['przedzial_1'], answers['przedzial_2'],
+                              answers_kryterium_zatrzymania))
 
-    if answers_type['typ_obliczen'] == 'metoda bisekcji':
-        if answers['funkcja'] == 'wielomianowa':
-            oblicz_bisekcja(funkcja_wielomianowa, answers['przedzial_1'], answers['przedzial_2'],
-                            answers_kryterium_zatrzymania)
-
-        elif answers['funkcja'] == 'trygonometryczna':
-            oblicz_bisekcja(funkcja_trygonometryczna, answers['przedzial_1'], answers['przedzial_2'],
-                            answers_kryterium_zatrzymania)
-        elif answers['funkcja'] == 'wykladnicza':
-            oblicz_bisekcja(funkcja_wykladnicza, answers['przedzial_1'], answers['przedzial_2'],
-                            answers_kryterium_zatrzymania)
+    elif answers['funkcja'] == 'trygonometryczna':
+        oblicz_bisekcja(funkcja_trygonometryczna, answers['przedzial_1'], answers['przedzial_2'],
+                        answers_kryterium_zatrzymania)
+    elif answers['funkcja'] == 'wykladnicza':
+        oblicz_bisekcja(funkcja_wykladnicza, answers['przedzial_1'], answers['przedzial_2'],
+                        answers_kryterium_zatrzymania)
 
     answers_kontynuowac = inquirer.prompt(questions_kontynuowac)
     if answers_kontynuowac['kontynuacja'] == 'Nie':
         kontynuacja = False
+
+    #######################
+    # CLEAR
+    #######################
     answers_kontynuowac.clear()
     answers.clear()
     answers_kryterium_zatrzymania.clear()
-
-
