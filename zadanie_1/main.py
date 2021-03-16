@@ -102,7 +102,7 @@ def oblicz_sieczne(funkcja, a, b, kryterium_zatrzymania):
 
 
 #######################################
-# GIU TOOLS
+# GUI TOOLS
 #######################################
 
 questions = [
