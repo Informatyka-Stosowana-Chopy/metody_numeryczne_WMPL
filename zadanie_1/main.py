@@ -9,7 +9,7 @@ print("----Zadanie 1 ----")
 #######################################
 
 def funkcja_wielomianowa(x):
-    return x ** 2 - 1
+    return (x - 2) ** 2 - 3
 
 
 def funkcja_trygonometryczna(x):
@@ -72,9 +72,34 @@ def oblicz_sieczne(funkcja, a, b, kryterium_zatrzymania):
         s += str(b)
         return s
     elif funkcja(a) * funkcja(b) > 0:
-        pass # aby nie wyświetlało 2x informacji
+        pass  # aby nie wyświetlało 2x informacji
     else:
         x1 = 0.0
+
+        if 'liczba_operacji' in kryterium_zatrzymania:
+            for i in range(int(kryterium_zatrzymania['liczba_operacji'])):
+                x1 = a + (funkcja(a) * ((b - a) / (funkcja(a) - funkcja(b))))
+                if funkcja(x1) == 0:
+                    s += str(x1)
+                    return s
+                if funkcja(a) * funkcja(x1) < 0:
+                    b = x1
+                else:
+                    a = x1
+
+        if 'dokladnosc' in kryterium_zatrzymania:
+            while abs(funkcja(x1)) > float(kryterium_zatrzymania['dokladnosc']):
+                x1 = a + (funkcja(a) * ((b - a) / (funkcja(a) - funkcja(b))))
+                if funkcja(x1) == 0:
+                    s += str(x1)
+                    return s
+                if funkcja(a) * funkcja(x1) < 0:
+                    b = x1
+                else:
+                    a = x1
+        s += str(x1)
+        return s
+
 
 #######################################
 # GIU TOOLS
@@ -130,13 +155,19 @@ while kontynuacja:
     if answers['funkcja'] == 'wielomianowa':
         print(oblicz_bisekcja(funkcja_wielomianowa, answers['przedzial_1'], answers['przedzial_2'],
                               answers_kryterium_zatrzymania))
+        print(oblicz_sieczne(funkcja_wielomianowa, answers['przedzial_1'], answers['przedzial_2'],
+                             answers_kryterium_zatrzymania))
 
     elif answers['funkcja'] == 'trygonometryczna':
-        oblicz_bisekcja(funkcja_trygonometryczna, answers['przedzial_1'], answers['przedzial_2'],
-                        answers_kryterium_zatrzymania)
+        print(oblicz_bisekcja(funkcja_trygonometryczna, answers['przedzial_1'], answers['przedzial_2'],
+                              answers_kryterium_zatrzymania))
+        print(oblicz_sieczne(funkcja_trygonometryczna, answers['przedzial_1'], answers['przedzial_2'],
+                             answers_kryterium_zatrzymania))
     elif answers['funkcja'] == 'wykladnicza':
-        oblicz_bisekcja(funkcja_wykladnicza, answers['przedzial_1'], answers['przedzial_2'],
-                        answers_kryterium_zatrzymania)
+        print(oblicz_bisekcja(funkcja_wykladnicza, answers['przedzial_1'], answers['przedzial_2'],
+                              answers_kryterium_zatrzymania))
+        print(oblicz_sieczne(funkcja_wykladnicza, answers['przedzial_1'], answers['przedzial_2'],
+                             answers_kryterium_zatrzymania))
 
     answers_kontynuowac = inquirer.prompt(questions_kontynuowac)
     if answers_kontynuowac['kontynuacja'] == 'Nie':
