@@ -34,7 +34,7 @@ def oblicz_bisekcja(funkcja, a, b, kryterium_zatrzymania):
     elif funkcja(a) * funkcja(b) > 0:
         return "W danym przedziale nie ma miejsca zerowego"
     else:
-        x1 = 0.0
+        x1 = a
 
         if 'liczba_operacji' in kryterium_zatrzymania:
             for i in range(int(kryterium_zatrzymania['liczba_operacji'])):
