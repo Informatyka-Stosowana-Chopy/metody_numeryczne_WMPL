@@ -74,7 +74,7 @@ def oblicz_sieczne(funkcja, a, b, kryterium_zatrzymania):
     elif funkcja(a) * funkcja(b) > 0:
         pass  # aby nie wyświetlało 2x informacji
     else:
-        x1 = 0.0
+        x1 = a
 
         if 'liczba_operacji' in kryterium_zatrzymania:
             for i in range(int(kryterium_zatrzymania['liczba_operacji'])):
