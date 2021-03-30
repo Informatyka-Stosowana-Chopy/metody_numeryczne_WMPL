@@ -1,7 +1,7 @@
 print("----Zadanie 2 ----")
 
 #####################
-# CONSTANT
+# CONSTANTS
 #####################
 
 macierz_1 = [
@@ -20,8 +20,8 @@ macierz_1_wynik = [
 # FUNCTIONS
 #####################
 
-def metoda_jordana():
-    # przekształcenie na macierz_1 jednostkową i wtedy macierz_1_wynik przekształcu się na wynik xD
+def metoda_gaussa_seidla():
+    # jakos trzeba zrobic xd
     pass
 
 
