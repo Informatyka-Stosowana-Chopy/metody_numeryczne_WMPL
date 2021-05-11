@@ -4,7 +4,7 @@ from sympy import *
 import numpy as np
 
 
-def horner(poly, x):
+def schemat_hornera(poly, x):
     result = poly[0]  # poly - współczynniki wielomianu
     n = len(poly)
     for i in range(1, n):
@@ -28,7 +28,7 @@ def get_fun_value(function, x):
         value = get_sub_fun_value(function)
     else:
         polys_coeffs = get_coeffs(function)
-        poly_value = horner(polys_coeffs, x)
+        poly_value = schemat_hornera(polys_coeffs, x)
         value = poly_value
     return float(value)
 
