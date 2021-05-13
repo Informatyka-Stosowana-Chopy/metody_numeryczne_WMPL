@@ -1,7 +1,7 @@
-from Tools.scripts.nm2def import symbols
-from numpy.polynomial.tests.test_classes import Poly
 from sympy import *
 import numpy as np
+
+
 
 
 def schemat_hornera(poly, x):
@@ -18,14 +18,14 @@ def get_coeffs(poly_fun):
     return function.all_coeffs()
 
 
-def get_sub_fun_value(fun):
+def get_sub_fun_value(fun, x):
     return eval(fun)
 
 
-def get_fun_value(function, x):
-    functions = ['np.sin', 'np.cos', 'np.tan', 'np.absolute(']
+def get_wartosci_funkcji(function, x):
+    functions = ['np.sin', 'np.cos', 'np.tan', 'np.absolute(', 'np.sqrt(']
     if any(elem in function for elem in functions):
-        value = get_sub_fun_value(function)
+        value = get_sub_fun_value(function, x)
     else:
         polys_coeffs = get_coeffs(function)
         poly_value = schemat_hornera(polys_coeffs, x)
@@ -36,7 +36,7 @@ def get_fun_value(function, x):
 def get_nodes_values(nodes, function):
     nodes_values = []
     for node in nodes:
-        nodes_values.append(get_fun_value(function, node))
+        nodes_values.append(get_wartosci_funkcji(function, node))
     return np.array(nodes_values)
 
 
@@ -58,7 +58,7 @@ def newton_interpolation(x, nodes, nodes_values):
     return p
 
 
-def get_all_results(formula_range, nodes_values, nodes, method): 
+def get_all_results(formula_range, nodes_values, nodes, method):
     x = np.linspace(formula_range[0], formula_range[1])
     y = []
     for elem in x:
@@ -68,3 +68,7 @@ def get_all_results(formula_range, nodes_values, nodes, method):
 
 def get_residuals(y, pred_y):  # wartości rezydualne
     return y - pred_y
+
+
+def get_mse(residuals):  # średni błąd kwadratowy
+    return float(np.square(residuals).mean())

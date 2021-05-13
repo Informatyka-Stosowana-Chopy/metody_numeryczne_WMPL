@@ -97,7 +97,7 @@ def wykres(formula_range, formula):
     x = np.linspace(formula_range[0], formula_range[1])
     y = []
     for i in range(len(x)):
-        y.append(logika.get_fun_value(formula, x[i]))
+        y.append(logika.get_wartosci_funkcji(formula, x[i]))
     plt.plot(x, np.array(y), label='Wykres funkcji')
 
 
