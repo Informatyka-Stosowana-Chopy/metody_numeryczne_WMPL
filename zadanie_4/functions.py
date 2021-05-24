@@ -1,11 +1,11 @@
 import numpy as np
 
-
 # f     : wzór funkcji
 # a, b  : granice całkowania [a,b]
 # N     : ilość interwałów (liczba parzysta)
 
-def simpson(f, a, b, epsilon):
+
+def simpson(f, a, b, epsilon=0.01):
     nn = 1000
     n = 2
     lastS = 0.0
@@ -24,17 +24,7 @@ def simpson(f, a, b, epsilon):
         n += 2
         firstIter = False
 
-    return S, int(n / 2)
-
-
-# wielomian Legendre'a
-def legendre(a, b, n, x):
-    if n == 0:
-        return 1  # P0 = 1
-    elif n == 1:
-        return x  # P1 = x
-    else:
-        return (((2 * n) - 1) * x * legendre(n - 1, x) - (n - 1) * legendre(n - 2, x)) / float(n)
+    return S
 
 
 def legendre_gauss(n: int, p: float, k: float, fn):
