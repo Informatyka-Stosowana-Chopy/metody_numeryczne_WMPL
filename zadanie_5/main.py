@@ -12,7 +12,7 @@ stopien_apro = 0
 questions = [
     inquirer.List(name='wybor_funkcji',
                   message="Wybierz funkcje: ",
-                  choices=["3*x-5", "|2*x-3|", "x^4-x^3-x^2-x+1", "sin(x)", "cos(x)-x^3"]),
+                  choices=["3*x-5", "|x|", "x^4-x^3-x^2-x+1", "sin(x)", "cos(x)-x^3"]),
 
     inquirer.Text(name='wezly',
                   message="Podaj liczbe wezlow kwadratury Gaussa <2:5>: "),

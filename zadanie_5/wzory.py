@@ -12,8 +12,8 @@ def wartosc_funkcji(x, wybor_funkcji):
     wartosc = None
     if wybor_funkcji in "3*x-5":
         wartosc = 3 * x - 5
-    elif wybor_funkcji in "|2*x-3|":
-        wartosc = abs(2 * x - 3)
+    elif wybor_funkcji in "|x|":
+        wartosc = abs(x)
     elif wybor_funkcji in "x^4-x^3-x^2-x+1":
         wartosc = horner([1, -1, -1, -1, 1], x)
     elif wybor_funkcji in "sin(x)":
@@ -32,8 +32,8 @@ def wzor_funkcji(wybor_funkcji):
     x = sp.Symbol('x')
     if wybor_funkcji in "3*x-5":
         wartosc = 3 * x - 5
-    elif wybor_funkcji in "|2*x-3|":
-        wartosc = abs(2 * x - 3)
+    elif wybor_funkcji in "|x|":
+        wartosc = abs(x)
     elif wybor_funkcji in "x^4-x^3-x^2-x+1":
         wartosc = horner([1, -1, -1, -1, 1], x)
     elif wybor_funkcji in "sin(x)":
